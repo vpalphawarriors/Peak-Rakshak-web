@@ -12,12 +12,18 @@
 
 body{
 font-family:Arial;
-background:#f2f7f2;
 margin:0;
+padding:0;
+
+/* Farmer background image */
+background-image:url("https://images.unsplash.com/photo-1592982537447-7440770cbfc9");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
 }
 
 header{
-background:#2e7d32;
+background:rgba(0,100,0,0.9);
 color:white;
 text-align:center;
 padding:20px;
@@ -30,11 +36,11 @@ margin-top:30px;
 }
 
 .card{
-background:white;
+background:rgba(255,255,255,0.95);
 padding:20px;
 border-radius:10px;
 margin-bottom:20px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+box-shadow:0 0 10px rgba(0,0,0,0.3);
 }
 
 input{
@@ -70,6 +76,10 @@ margin-top:15px;
 border-radius:8px;
 }
 
+.map{
+margin-top:15px;
+}
+
 </style>
 
 </head>
@@ -79,9 +89,10 @@ border-radius:8px;
 <header>
 
 <h1>🌱 Pik Rakshak</h1>
-<p>AI Crop Disease Detector</p>
+<p>AI Crop Disease Detector for Farmers</p>
 
 </header>
+
 
 <div class="container">
 
@@ -122,7 +133,20 @@ border-radius:8px;
 <p id="fertilizer"></p>
 <p id="buy"></p>
 
-<button onclick="findShops()">Find Nearby Fertilizer Shops</button>
+<div class="map">
+
+<h3>Nearby Fertilizer Shops</h3>
+
+<iframe
+width="100%"
+height="300"
+frameborder="0"
+style="border:0"
+src="https://www.google.com/maps?q=fertilizer+shop+near+me&output=embed"
+allowfullscreen>
+</iframe>
+
+</div>
 
 </div>
 
@@ -201,7 +225,7 @@ link:"https://www.amazon.in/s?k=copper+oxychloride"
 {
 eng:"Powdery Mildew",
 mar:"भुरी रोग",
-solution:"Spray sulfur fungicide or neem oil.",
+solution:"Spray sulfur fungicide.",
 fertilizer:"Sulfur Fungicide",
 link:"https://www.amazon.in/s?k=sulfur+fungicide"
 },
@@ -217,7 +241,7 @@ link:"https://www.amazon.in/s?k=propiconazole+fungicide"
 {
 eng:"Early Blight",
 mar:"लवकर करपा रोग",
-solution:"Apply Mancozeb fungicide and remove affected leaves.",
+solution:"Apply Mancozeb fungicide.",
 fertilizer:"Mancozeb",
 link:"https://www.amazon.in/s?k=mancozeb+fungicide"
 }
@@ -239,14 +263,9 @@ return;
 
 }
 
-let img=document.createElement("img");
+document.getElementById("preview").src=URL.createObjectURL(file);
 
-img.src=URL.createObjectURL(file);
-
-document.getElementById("preview").src=img.src;
-
-
-/* Random detection (demo) */
+/* Demo detection */
 
 let random=Math.floor(Math.random()*diseaseDB.length);
 
@@ -262,39 +281,11 @@ document.getElementById("solution").innerText="Solution: "+data.solution;
 
 document.getElementById("fertilizer").innerText="Recommended Fertilizer: "+data.fertilizer;
 
-document.getElementById("buy").innerHTML="Purchase Link: <a href='"+data.link+"' target='_blank'>Buy Online</a>";
-
-}
-
-
-/* FIND NEARBY SHOPS */
-
-function findShops(){
-
-if(navigator.geolocation){
-
-navigator.geolocation.getCurrentPosition(function(position){
-
-let lat=position.coords.latitude;
-
-let lon=position.coords.longitude;
-
-let mapURL="https://www.google.com/maps/search/fertilizer+shop/@"+lat+","+lon+",15z";
-
-window.open(mapURL);
-
-});
-
-}else{
-
-alert("Location not supported");
-
-}
+document.getElementById("buy").innerHTML="Purchase Link: <a href='"+data.link+"' target='_blank'>Buy Here</a>";
 
 }
 
 </script>
 
 </body>
-
 </html>
