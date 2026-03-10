@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,12 +24,12 @@ text-align:center;
 padding:18px;
 font-size:28px;
 box-shadow:0 4px 10px rgba(0,0,0,0.4);
-animation:headerGlow 3s infinite alternate;
+animation:glow 3s infinite alternate;
 }
 
-@keyframes headerGlow{
+@keyframes glow{
 from{box-shadow:0 0 10px #2e7d32}
-to{box-shadow:0 0 30px #66bb6a}
+to{box-shadow:0 0 25px #66bb6a}
 }
 
 /* LOGIN */
@@ -42,7 +41,6 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-animation:fadeIn 1.2s;
 }
 
 /* PAGES */
@@ -51,11 +49,11 @@ animation:fadeIn 1.2s;
 display:none;
 padding:20px;
 min-height:100vh;
-background:rgba(255,255,255,0.85);
-animation:pageFade 0.7s;
+background:rgba(255,255,255,0.9);
+animation:fade 0.8s;
 }
 
-@keyframes pageFade{
+@keyframes fade{
 from{opacity:0;transform:translateY(30px)}
 to{opacity:1;transform:translateY(0)}
 }
@@ -68,13 +66,6 @@ padding:20px;
 border-radius:12px;
 margin-top:20px;
 box-shadow:0 6px 20px rgba(0,0,0,0.3);
-animation:floatCard 4s infinite ease-in-out;
-}
-
-@keyframes floatCard{
-0%{transform:translateY(0)}
-50%{transform:translateY(-6px)}
-100%{transform:translateY(0)}
 }
 
 /* FORM */
@@ -86,8 +77,6 @@ margin-top:10px;
 border-radius:6px;
 border:1px solid #ccc;
 }
-
-/* BUTTON */
 
 button{
 padding:12px;
@@ -103,7 +92,7 @@ transition:0.3s;
 
 button:hover{
 transform:scale(1.07);
-box-shadow:0 0 20px #66bb6a;
+box-shadow:0 0 15px #66bb6a;
 }
 
 .result{
@@ -116,11 +105,9 @@ border-radius:6px;
 .error{
 color:red;
 font-weight:bold;
-margin-top:10px;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -150,22 +137,21 @@ margin-top:10px;
 
 <div class="card">
 
-<h3>Select Category</h3>
-
-<select id="category">
-<option value="crop">Crop</option>
-<option value="fruit">Fruit</option>
-</select>
+<h3>Farmer Services</h3>
 
 <button onclick="showPage('detectPage')">🌿 Disease Detection</button>
+
 <button onclick="showPage('pricePage')">💰 Market Prices</button>
+
+<button onclick="showPage('soilPage')">🌱 Soil & Crop Recommendation</button>
+
 <button onclick="showPage('shopPage')">📍 Nearby Fertilizer Shop</button>
 
 </div>
 
 </div>
 
-<!-- DETECT -->
+<!-- DISEASE DETECTION -->
 
 <div id="detectPage" class="page">
 
@@ -175,36 +161,19 @@ margin-top:10px;
 
 <select id="plant">
 
-<!-- CROPS -->
-<option value="wheat">Wheat</option>
-<option value="rice">Rice</option>
-<option value="maize">Maize</option>
-<option value="soybean">Soybean</option>
-<option value="cotton">Cotton</option>
-<option value="potato">Potato</option>
-<option value="onion">Onion</option>
-<option value="sugarcane">Sugarcane</option>
-<option value="tomato">Tomato</option>
-<option value="chilli">Chilli</option>
-<option value="groundnut">Groundnut</option>
-<option value="barley">Barley</option>
-<option value="millet">Millet</option>
-<option value="lentil">Lentil</option>
-<option value="pea">Pea</option>
-
-<!-- FRUITS -->
-<option value="mango">Mango</option>
-<option value="banana">Banana</option>
-<option value="apple">Apple</option>
-<option value="grapes">Grapes</option>
-<option value="orange">Orange</option>
-<option value="pomegranate">Pomegranate</option>
-<option value="papaya">Papaya</option>
-<option value="guava">Guava</option>
-<option value="pineapple">Pineapple</option>
-<option value="watermelon">Watermelon</option>
-<option value="muskmelon">Muskmelon</option>
-<option value="strawberry">Strawberry</option>
+<option>wheat</option>
+<option>rice</option>
+<option>maize</option>
+<option>soybean</option>
+<option>cotton</option>
+<option>potato</option>
+<option>onion</option>
+<option>tomato</option>
+<option>chilli</option>
+<option>mango</option>
+<option>banana</option>
+<option>apple</option>
+<option>grapes</option>
 
 </select>
 
@@ -212,25 +181,7 @@ margin-top:10px;
 
 <button onclick="detect()">Detect Disease</button>
 
-<div id="error" class="error"></div>
-
-</div>
-
-</div>
-
-<!-- RESULT -->
-
-<div id="resultPage" class="page">
-
-<div class="card">
-
-<h3>Disease Result</h3>
-
 <div id="result" class="result"></div>
-
-<a id="buyLink" target="_blank">
-<button>Buy Medicine</button>
-</a>
 
 <button onclick="showPage('menuPage')">Back</button>
 
@@ -238,7 +189,39 @@ margin-top:10px;
 
 </div>
 
-<!-- PRICE -->
+<!-- SOIL RECOMMENDATION -->
+
+<div id="soilPage" class="page">
+
+<div class="card">
+
+<h3>🌱 Soil & Crop Recommendation</h3>
+
+<select id="soilType">
+<option>Black Soil</option>
+<option>Red Soil</option>
+<option>Alluvial Soil</option>
+<option>Sandy Soil</option>
+<option>Clay Soil</option>
+</select>
+
+<input id="ph" placeholder="Soil pH">
+
+<input id="temp" placeholder="Temperature °C">
+
+<input id="rain" placeholder="Rainfall mm">
+
+<button onclick="recommendCrop()">Recommend Crop</button>
+
+<div id="soilResult" class="result"></div>
+
+<button onclick="showPage('menuPage')">Back</button>
+
+</div>
+
+</div>
+
+<!-- PRICE PAGE -->
 
 <div id="pricePage" class="page">
 
@@ -246,7 +229,16 @@ margin-top:10px;
 
 <h3>Market Prices</h3>
 
-<select id="itemSelect"></select>
+<select id="itemSelect">
+
+<option>Wheat</option>
+<option>Rice</option>
+<option>Tomato</option>
+<option>Onion</option>
+<option>Mango</option>
+<option>Banana</option>
+
+</select>
 
 <button onclick="showPrice()">Show Price</button>
 
@@ -288,7 +280,7 @@ let name=document.getElementById("name").value
 let mobile=document.getElementById("mobile").value
 
 if(name=="" || mobile==""){
-alert("Enter Name and Mobile Number")
+alert("Enter Name and Mobile")
 return
 }
 
@@ -302,90 +294,96 @@ showPage("menuPage")
 function showPage(id){
 
 document.querySelectorAll(".page").forEach(p=>p.style.display="none")
+
 document.getElementById(id).style.display="block"
 
-if(id=="pricePage") loadItems()
-
 }
 
-/* CATEGORY */
-
-const crops=["wheat","rice","maize","soybean","cotton","potato","onion","sugarcane","tomato","chilli","groundnut","barley","millet","lentil","pea"]
-
-const fruits=["mango","banana","apple","grapes","orange","pomegranate","papaya","guava","pineapple","watermelon","muskmelon","strawberry"]
-
-/* DISEASE DATABASE */
+/* DISEASE DATA */
 
 const diseases={
-
-wheat:["Rust Disease","गंज रोग","Spray Propiconazole","https://www.amazon.in/s?k=propiconazole"],
-rice:["Blast Disease","भात ब्लास्ट","Use Tricyclazole","https://www.amazon.in/s?k=tricyclazole"],
-maize:["Leaf Blight","पान करपा","Spray Mancozeb","https://www.amazon.in/s?k=mancozeb"],
-soybean:["Yellow Mosaic","पिवळा मोझॅक","Spray Imidacloprid","https://www.amazon.in/s?k=imidacloprid"],
-cotton:["Bollworm","बोंडअळी","Spray Spinosad","https://www.amazon.in/s?k=spinosad"],
-potato:["Late Blight","उशीरा करपा","Use Metalaxyl","https://www.amazon.in/s?k=metalaxyl"],
-onion:["Purple Blotch","जांभळा डाग","Use Chlorothalonil","https://www.amazon.in/s?k=chlorothalonil"],
-sugarcane:["Red Rot","लाल कुज","Use Carbendazim","https://www.amazon.in/s?k=carbendazim"],
-tomato:["Early Blight","लवकर करपा","Spray Mancozeb","https://www.amazon.in/s?k=mancozeb"],
-chilli:["Leaf Curl","पान वाकडी","Spray Imidacloprid","https://www.amazon.in/s?k=imidacloprid"],
-groundnut:["Tikka Disease","टिक्का रोग","Use Carbendazim","https://www.amazon.in/s?k=carbendazim"],
-barley:["Powdery Mildew","भुरी रोग","Use Sulfur","https://www.amazon.in/s?k=sulfur+fungicide"],
-millet:["Downy Mildew","डाउनी मिल्ड्यू","Use Metalaxyl","https://www.amazon.in/s?k=metalaxyl"],
-lentil:["Wilt Disease","मर रोग","Use Carbendazim","https://www.amazon.in/s?k=carbendazim"],
-pea:["Powdery Mildew","भुरी रोग","Use Sulfur","https://www.amazon.in/s?k=sulfur"],
-
-mango:["Anthracnose","अँथ्रॅक्नोज","Spray Copper Fungicide","https://www.amazon.in/s?k=copper+fungicide"],
-banana:["Panama Disease","पनामा रोग","Use Carbendazim","https://www.amazon.in/s?k=carbendazim"],
-apple:["Apple Scab","सफरचंद खपली","Use Captan","https://www.amazon.in/s?k=captan"],
-grapes:["Powdery Mildew","भुरी रोग","Use Sulfur","https://www.amazon.in/s?k=sulfur+fungicide"],
-orange:["Citrus Canker","लिंबू कॅंकर","Spray Copper","https://www.amazon.in/s?k=copper+fungicide"],
-pomegranate:["Bacterial Blight","जिवाणू करपा","Use Streptocycline","https://www.amazon.in/s?k=streptocycline"],
-papaya:["Ring Spot Virus","रिंग स्पॉट","Control Aphids","https://www.amazon.in/s?k=aphid+insecticide"],
-guava:["Wilt Disease","मर रोग","Use Carbendazim","https://www.amazon.in/s?k=carbendazim"],
-pineapple:["Heart Rot","हृदय कुज","Use Fosetyl","https://www.amazon.in/s?k=fosetyl"],
-watermelon:["Downy Mildew","डाउनी मिल्ड्यू","Use Mancozeb","https://www.amazon.in/s?k=mancozeb"],
-muskmelon:["Powdery Mildew","भुरी रोग","Use Sulfur","https://www.amazon.in/s?k=sulfur"],
-strawberry:["Leaf Spot","पान डाग","Use Captan","https://www.amazon.in/s?k=captan"]
-
+wheat:"Rust Disease - Spray Propiconazole",
+rice:"Blast Disease - Use Tricyclazole",
+maize:"Leaf Blight - Spray Mancozeb",
+soybean:"Yellow Mosaic - Spray Imidacloprid",
+cotton:"Bollworm - Spray Spinosad",
+potato:"Late Blight - Use Metalaxyl",
+onion:"Purple Blotch - Spray Chlorothalonil",
+tomato:"Early Blight - Spray Mancozeb",
+chilli:"Leaf Curl - Spray Imidacloprid",
+mango:"Anthracnose - Copper Fungicide",
+banana:"Panama Disease - Carbendazim",
+apple:"Apple Scab - Captan",
+grapes:"Powdery Mildew - Sulfur Spray"
 }
-
-/* DETECT */
 
 function detect(){
 
-let category=document.getElementById("category").value
 let plant=document.getElementById("plant").value
-let file=document.getElementById("image").files[0]
-let error=document.getElementById("error")
 
-error.innerHTML=""
+let file=document.getElementById("image").files[0]
 
 if(!file){
-error.innerHTML="Upload plant image"
-return
-}
 
-if(category=="crop" && !crops.includes(plant)){
-error.innerHTML="❌ Fruit selected in Crop category"
-return
-}
+alert("Upload Image")
 
-if(category=="fruit" && !fruits.includes(plant)){
-error.innerHTML="❌ Crop selected in Fruit category"
 return
-}
 
-let d=diseases[plant]
+}
 
 document.getElementById("result").innerHTML=
+
 "<b>Plant:</b> "+plant+
-"<br><b>Disease:</b> "+d[0]+
-"<br><b>मराठी:</b> "+d[1]+
-"<br><b>Solution:</b> "+d[2]
 
-document.getElementById("buyLink").href=d[3]
+"<br><b>Disease:</b> "+diseases[plant]
 
-showPage("resultPage")
+}
+
+/* SOIL RECOMMENDATION */
+
+function recommendCrop(){
+
+let soil=document.getElementById("soilType").value
+
+let ph=document.getElementById("ph").value
+
+let temp=document.getElementById("temp").value
+
+let rain=document.getElementById("rain").value
+
+let result=""
+
+if(soil=="Black Soil"){
+
+result="Best Crops: Cotton, Soybean, Wheat"
+
+}
+
+else if(soil=="Red Soil"){
+
+result="Best Crops: Groundnut, Millet, Potato"
+
+}
+
+else if(soil=="Alluvial Soil"){
+
+result="Best Crops: Rice, Sugarcane, Wheat"
+
+}
+
+else if(soil=="Sandy Soil"){
+
+result="Best Crops: Watermelon, Groundnut"
+
+}
+
+else{
+
+result="Best Crops: Rice, Lettuce, Cabbage"
+
+}
+
+document.getElementById("soilResult").innerHTML=result
 
 }
 
@@ -396,68 +394,34 @@ function searchShop(){
 let city=document.getElementById("city").value
 
 document.getElementById("map").innerHTML=
+
 '<iframe width="100%" height="350" src="https://maps.google.com/maps?q=fertilizer%20shop%20in%20'+city+'&output=embed"></iframe>'
 
 }
 
-/* PRICE DATA */
-
-const cropPrices={
-"Wheat":{"Maharashtra":"2300","Punjab":"2400","UP":"2350","MP":"2250","Bihar":"2280"},
-"Rice":{"Punjab":"2900","Tamil Nadu":"2700","West Bengal":"2800","Odisha":"2750"},
-"Maize":{"MP":"2100","Bihar":"2000","Karnataka":"2050","Telangana":"2080"},
-"Soybean":{"MP":"4300","Maharashtra":"4200","Rajasthan":"4150","Gujarat":"4250"},
-"Cotton":{"Gujarat":"7000","Maharashtra":"6900","Punjab":"7100"},
-"Onion":{"Maharashtra":"1800","Karnataka":"1700","MP":"1750"},
-"Tomato":{"Maharashtra":"1500","Karnataka":"1600","UP":"1400"}
-}
-
-const fruitPrices={
-"Mango":{"Maharashtra":"60/kg","UP":"55/kg","Gujarat":"58/kg","Karnataka":"62/kg"},
-"Banana":{"Tamil Nadu":"35/kg","Maharashtra":"40/kg","Karnataka":"45/kg","Kerala":"50/kg"},
-"Apple":{"Himachal":"180/kg","Delhi":"210/kg","Punjab":"200/kg","J&K":"170/kg"},
-"Grapes":{"Maharashtra":"90/kg","Punjab":"100/kg","Karnataka":"95/kg"},
-"Orange":{"Nagpur":"70/kg","MP":"65/kg","Punjab":"75/kg"},
-"Pomegranate":{"Maharashtra":"120/kg","Karnataka":"110/kg","Gujarat":"115/kg"}
-}
-
-/* LOAD ITEMS */
-
-function loadItems(){
-
-let category=document.getElementById("category").value
-let select=document.getElementById("itemSelect")
-
-select.innerHTML=""
-
-let data=(category=="fruit")?fruitPrices:cropPrices
-
-for(let item in data){
-
-let option=document.createElement("option")
-option.text=item
-select.add(option)
-
-}
-
-}
-
-/* SHOW PRICE */
+/* PRICE */
 
 function showPrice(){
 
-let category=document.getElementById("category").value
 let item=document.getElementById("itemSelect").value
 
-let data=(category=="fruit")?fruitPrices:cropPrices
+let prices={
 
-let result=""
+"Wheat":"₹2300 Maharashtra | ₹2400 Punjab",
 
-for(let state in data[item]){
-result+=state+" : ₹"+data[item][state]+"<br>"
+"Rice":"₹2900 Punjab | ₹2700 Tamil Nadu",
+
+"Tomato":"₹1500 Maharashtra | ₹1600 Karnataka",
+
+"Onion":"₹1800 Maharashtra | ₹1700 Karnataka",
+
+"Mango":"₹60/kg Maharashtra | ₹55/kg UP",
+
+"Banana":"₹40/kg Maharashtra | ₹35/kg Tamil Nadu"
+
 }
 
-document.getElementById("priceResult").innerHTML=result
+document.getElementById("priceResult").innerHTML=prices[item]
 
 }
 
