@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pik Rakshak</title>
 
 <style>
@@ -13,71 +11,112 @@
 body{
 font-family:Arial;
 margin:0;
-padding:0;
-
-/* Farmer background image */
-background-image:url("https://images.unsplash.com/photo-1592982537447-7440770cbfc9");
+background:url("https://images.unsplash.com/photo-1464226184884-fa280b87c399");
 background-size:cover;
-background-position:center;
 background-attachment:fixed;
 }
 
+/* HEADER */
+
 header{
-background:rgba(0,100,0,0.9);
+background:linear-gradient(90deg,#2e7d32,#1b5e20);
 color:white;
 text-align:center;
-padding:20px;
+padding:18px;
+font-size:28px;
+box-shadow:0 4px 10px rgba(0,0,0,0.4);
+animation:headerGlow 3s infinite alternate;
 }
 
-.container{
-width:800px;
-margin:auto;
-margin-top:30px;
+@keyframes headerGlow{
+from{box-shadow:0 0 10px #2e7d32}
+to{box-shadow:0 0 30px #66bb6a}
 }
+
+/* LOGIN */
+
+.login{
+background:url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+background-size:cover;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+animation:fadeIn 1.2s;
+}
+
+/* PAGES */
+
+.page{
+display:none;
+padding:20px;
+min-height:100vh;
+background:rgba(255,255,255,0.85);
+animation:pageFade 0.7s;
+}
+
+@keyframes pageFade{
+from{opacity:0;transform:translateY(30px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+/* CARD */
 
 .card{
-background:rgba(255,255,255,0.95);
+background:white;
 padding:20px;
-border-radius:10px;
-margin-bottom:20px;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
+border-radius:12px;
+margin-top:20px;
+box-shadow:0 6px 20px rgba(0,0,0,0.3);
+animation:floatCard 4s infinite ease-in-out;
 }
 
-input{
+@keyframes floatCard{
+0%{transform:translateY(0)}
+50%{transform:translateY(-6px)}
+100%{transform:translateY(0)}
+}
+
+/* FORM */
+
+input,select{
 width:100%;
 padding:10px;
 margin-top:10px;
+border-radius:6px;
+border:1px solid #ccc;
 }
 
+/* BUTTON */
+
 button{
-padding:10px 20px;
+padding:12px;
 margin-top:10px;
-background:#2e7d32;
+background:linear-gradient(90deg,#43a047,#2e7d32);
 color:white;
 border:none;
-border-radius:5px;
 cursor:pointer;
+border-radius:8px;
+font-weight:bold;
+transition:0.3s;
 }
 
 button:hover{
-background:#1b5e20;
-}
-
-img{
-width:100%;
-margin-top:15px;
-border-radius:8px;
+transform:scale(1.07);
+box-shadow:0 0 20px #66bb6a;
 }
 
 .result{
-background:#e8f5e9;
+background:#f1f8e9;
 padding:15px;
-margin-top:15px;
-border-radius:8px;
+margin-top:10px;
+border-radius:6px;
 }
 
-.map{
-margin-top:15px;
+.error{
+color:red;
+font-weight:bold;
+margin-top:10px;
 }
 
 </style>
@@ -86,202 +125,339 @@ margin-top:15px;
 
 <body>
 
-<header>
+<header>🌾 Pik Rakshak - Smart Farming Assistant</header>
 
-<h1>🌱 Pik Rakshak</h1>
-<p>AI Crop Disease Detector for Farmers</p>
+<!-- LOGIN -->
 
-</header>
+<div id="loginPage" class="login">
 
+<div class="card" style="width:320px">
 
-<div class="container">
-
-<div class="card" id="login">
-
-<h2>Farmer Login</h2>
+<h3>Farmer Login</h3>
 
 <input id="name" placeholder="Farmer Name">
+<input id="mobile" placeholder="Mobile Number">
 
-<input id="phone" placeholder="Mobile Number">
-
-<button onclick="sendOTP()">Send OTP</button>
-
-<input id="otp" placeholder="Enter OTP">
-
-<button onclick="verifyOTP()">Verify OTP</button>
+<button onclick="login()">Login</button>
 
 </div>
 
+</div>
 
-<div class="card" id="upload" style="display:none">
+<!-- MENU -->
 
-<h2>Upload Crop Leaf Image</h2>
+<div id="menuPage" class="page">
 
-<input type="file" id="imageUpload" accept="image/*">
+<div class="card">
 
-<button onclick="predict()">Detect Disease</button>
+<h3>Select Category</h3>
 
-<img id="preview">
+<select id="category">
+<option value="crop">Crop</option>
+<option value="fruit">Fruit</option>
+</select>
 
-<div id="result" class="result" style="display:none">
+<button onclick="showPage('detectPage')">🌿 Disease Detection</button>
+<button onclick="showPage('pricePage')">💰 Market Prices</button>
+<button onclick="showPage('shopPage')">📍 Nearby Fertilizer Shop</button>
+
+</div>
+
+</div>
+
+<!-- DETECT -->
+
+<div id="detectPage" class="page">
+
+<div class="card">
+
+<h3>Disease Detection</h3>
+
+<select id="plant">
+
+<!-- CROPS -->
+<option value="wheat">Wheat</option>
+<option value="rice">Rice</option>
+<option value="maize">Maize</option>
+<option value="soybean">Soybean</option>
+<option value="cotton">Cotton</option>
+<option value="potato">Potato</option>
+<option value="onion">Onion</option>
+<option value="sugarcane">Sugarcane</option>
+<option value="tomato">Tomato</option>
+<option value="chilli">Chilli</option>
+<option value="groundnut">Groundnut</option>
+<option value="barley">Barley</option>
+<option value="millet">Millet</option>
+<option value="lentil">Lentil</option>
+<option value="pea">Pea</option>
+
+<!-- FRUITS -->
+<option value="mango">Mango</option>
+<option value="banana">Banana</option>
+<option value="apple">Apple</option>
+<option value="grapes">Grapes</option>
+<option value="orange">Orange</option>
+<option value="pomegranate">Pomegranate</option>
+<option value="papaya">Papaya</option>
+<option value="guava">Guava</option>
+<option value="pineapple">Pineapple</option>
+<option value="watermelon">Watermelon</option>
+<option value="muskmelon">Muskmelon</option>
+<option value="strawberry">Strawberry</option>
+
+</select>
+
+<input type="file" id="image">
+
+<button onclick="detect()">Detect Disease</button>
+
+<div id="error" class="error"></div>
+
+</div>
+
+</div>
+
+<!-- RESULT -->
+
+<div id="resultPage" class="page">
+
+<div class="card">
 
 <h3>Disease Result</h3>
 
-<p id="engDisease"></p>
-<p id="marDisease"></p>
-<p id="solution"></p>
-<p id="fertilizer"></p>
-<p id="buy"></p>
+<div id="result" class="result"></div>
 
-<div class="map">
+<a id="buyLink" target="_blank">
+<button>Buy Medicine</button>
+</a>
 
-<h3>Nearby Fertilizer Shops</h3>
-
-<iframe
-width="100%"
-height="300"
-frameborder="0"
-style="border:0"
-src="https://www.google.com/maps?q=fertilizer+shop+near+me&output=embed"
-allowfullscreen>
-</iframe>
+<button onclick="showPage('menuPage')">Back</button>
 
 </div>
 
 </div>
 
-</div>
+<!-- PRICE -->
+
+<div id="pricePage" class="page">
+
+<div class="card">
+
+<h3>Market Prices</h3>
+
+<select id="itemSelect"></select>
+
+<button onclick="showPrice()">Show Price</button>
+
+<div id="priceResult" class="result"></div>
+
+<button onclick="showPage('menuPage')">Back</button>
 
 </div>
 
+</div>
+
+<!-- SHOP -->
+
+<div id="shopPage" class="page">
+
+<div class="card">
+
+<h3>Nearby Fertilizer Shop</h3>
+
+<input id="city" placeholder="Enter City">
+
+<button onclick="searchShop()">Search</button>
+
+<div id="map"></div>
+
+<button onclick="showPage('menuPage')">Back</button>
+
+</div>
+
+</div>
 
 <script>
 
-/* OTP SYSTEM */
+/* LOGIN */
 
-let otp;
+function login(){
 
-function sendOTP(){
+let name=document.getElementById("name").value
+let mobile=document.getElementById("mobile").value
 
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-
-if(name==""){
-alert("Enter Farmer Name");
-return;
+if(name=="" || mobile==""){
+alert("Enter Name and Mobile Number")
+return
 }
 
-if(phone.length!=10){
-alert("Enter valid 10 digit mobile number");
-return;
-}
-
-otp=Math.floor(100000+Math.random()*900000);
-
-alert("Demo OTP: "+otp);
+document.getElementById("loginPage").style.display="none"
+showPage("menuPage")
 
 }
 
-function verifyOTP(){
+/* PAGE SWITCH */
 
-let user=document.getElementById("otp").value;
+function showPage(id){
 
-if(user==otp){
+document.querySelectorAll(".page").forEach(p=>p.style.display="none")
+document.getElementById(id).style.display="block"
 
-alert("Login Successful");
-
-document.getElementById("login").style.display="none";
-document.getElementById("upload").style.display="block";
-
-}else{
-
-alert("Wrong OTP");
+if(id=="pricePage") loadItems()
 
 }
 
-}
+/* CATEGORY */
 
+const crops=["wheat","rice","maize","soybean","cotton","potato","onion","sugarcane","tomato","chilli","groundnut","barley","millet","lentil","pea"]
+
+const fruits=["mango","banana","apple","grapes","orange","pomegranate","papaya","guava","pineapple","watermelon","muskmelon","strawberry"]
 
 /* DISEASE DATABASE */
 
-const diseaseDB=[
+const diseases={
 
-{
-eng:"Healthy Leaf",
-mar:"निरोगी पान",
-solution:"Maintain proper irrigation and balanced fertilizer.",
-fertilizer:"NPK 19:19:19",
-link:"https://www.amazon.in/s?k=npk+19+19+19+fertilizer"
-},
+wheat:["Rust Disease","गंज रोग","Spray Propiconazole","https://www.amazon.in/s?k=propiconazole"],
+rice:["Blast Disease","भात ब्लास्ट","Use Tricyclazole","https://www.amazon.in/s?k=tricyclazole"],
+maize:["Leaf Blight","पान करपा","Spray Mancozeb","https://www.amazon.in/s?k=mancozeb"],
+soybean:["Yellow Mosaic","पिवळा मोझॅक","Spray Imidacloprid","https://www.amazon.in/s?k=imidacloprid"],
+cotton:["Bollworm","बोंडअळी","Spray Spinosad","https://www.amazon.in/s?k=spinosad"],
+potato:["Late Blight","उशीरा करपा","Use Metalaxyl","https://www.amazon.in/s?k=metalaxyl"],
+onion:["Purple Blotch","जांभळा डाग","Use Chlorothalonil","https://www.amazon.in/s?k=chlorothalonil"],
+sugarcane:["Red Rot","लाल कुज","Use Carbendazim","https://www.amazon.in/s?k=carbendazim"],
+tomato:["Early Blight","लवकर करपा","Spray Mancozeb","https://www.amazon.in/s?k=mancozeb"],
+chilli:["Leaf Curl","पान वाकडी","Spray Imidacloprid","https://www.amazon.in/s?k=imidacloprid"],
+groundnut:["Tikka Disease","टिक्का रोग","Use Carbendazim","https://www.amazon.in/s?k=carbendazim"],
+barley:["Powdery Mildew","भुरी रोग","Use Sulfur","https://www.amazon.in/s?k=sulfur+fungicide"],
+millet:["Downy Mildew","डाउनी मिल्ड्यू","Use Metalaxyl","https://www.amazon.in/s?k=metalaxyl"],
+lentil:["Wilt Disease","मर रोग","Use Carbendazim","https://www.amazon.in/s?k=carbendazim"],
+pea:["Powdery Mildew","भुरी रोग","Use Sulfur","https://www.amazon.in/s?k=sulfur"],
 
-{
-eng:"Leaf Spot",
-mar:"पानांवरील ठिपके रोग",
-solution:"Remove infected leaves and spray copper fungicide.",
-fertilizer:"Copper Oxychloride",
-link:"https://www.amazon.in/s?k=copper+oxychloride"
-},
+mango:["Anthracnose","अँथ्रॅक्नोज","Spray Copper Fungicide","https://www.amazon.in/s?k=copper+fungicide"],
+banana:["Panama Disease","पनामा रोग","Use Carbendazim","https://www.amazon.in/s?k=carbendazim"],
+apple:["Apple Scab","सफरचंद खपली","Use Captan","https://www.amazon.in/s?k=captan"],
+grapes:["Powdery Mildew","भुरी रोग","Use Sulfur","https://www.amazon.in/s?k=sulfur+fungicide"],
+orange:["Citrus Canker","लिंबू कॅंकर","Spray Copper","https://www.amazon.in/s?k=copper+fungicide"],
+pomegranate:["Bacterial Blight","जिवाणू करपा","Use Streptocycline","https://www.amazon.in/s?k=streptocycline"],
+papaya:["Ring Spot Virus","रिंग स्पॉट","Control Aphids","https://www.amazon.in/s?k=aphid+insecticide"],
+guava:["Wilt Disease","मर रोग","Use Carbendazim","https://www.amazon.in/s?k=carbendazim"],
+pineapple:["Heart Rot","हृदय कुज","Use Fosetyl","https://www.amazon.in/s?k=fosetyl"],
+watermelon:["Downy Mildew","डाउनी मिल्ड्यू","Use Mancozeb","https://www.amazon.in/s?k=mancozeb"],
+muskmelon:["Powdery Mildew","भुरी रोग","Use Sulfur","https://www.amazon.in/s?k=sulfur"],
+strawberry:["Leaf Spot","पान डाग","Use Captan","https://www.amazon.in/s?k=captan"]
 
-{
-eng:"Powdery Mildew",
-mar:"भुरी रोग",
-solution:"Spray sulfur fungicide.",
-fertilizer:"Sulfur Fungicide",
-link:"https://www.amazon.in/s?k=sulfur+fungicide"
-},
-
-{
-eng:"Rust Disease",
-mar:"तांबेरा रोग",
-solution:"Spray Propiconazole fungicide.",
-fertilizer:"Propiconazole",
-link:"https://www.amazon.in/s?k=propiconazole+fungicide"
-},
-
-{
-eng:"Early Blight",
-mar:"लवकर करपा रोग",
-solution:"Apply Mancozeb fungicide.",
-fertilizer:"Mancozeb",
-link:"https://www.amazon.in/s?k=mancozeb+fungicide"
 }
 
-];
+/* DETECT */
 
+function detect(){
 
-/* DETECTION */
+let category=document.getElementById("category").value
+let plant=document.getElementById("plant").value
+let file=document.getElementById("image").files[0]
+let error=document.getElementById("error")
 
-function predict(){
-
-let file=document.getElementById("imageUpload").files[0];
+error.innerHTML=""
 
 if(!file){
+error.innerHTML="Upload plant image"
+return
+}
 
-alert("Upload image");
+if(category=="crop" && !crops.includes(plant)){
+error.innerHTML="❌ Fruit selected in Crop category"
+return
+}
 
-return;
+if(category=="fruit" && !fruits.includes(plant)){
+error.innerHTML="❌ Crop selected in Fruit category"
+return
+}
+
+let d=diseases[plant]
+
+document.getElementById("result").innerHTML=
+"<b>Plant:</b> "+plant+
+"<br><b>Disease:</b> "+d[0]+
+"<br><b>मराठी:</b> "+d[1]+
+"<br><b>Solution:</b> "+d[2]
+
+document.getElementById("buyLink").href=d[3]
+
+showPage("resultPage")
 
 }
 
-document.getElementById("preview").src=URL.createObjectURL(file);
+/* SHOP */
 
-/* Demo detection */
+function searchShop(){
 
-let random=Math.floor(Math.random()*diseaseDB.length);
+let city=document.getElementById("city").value
 
-let data=diseaseDB[random];
+document.getElementById("map").innerHTML=
+'<iframe width="100%" height="350" src="https://maps.google.com/maps?q=fertilizer%20shop%20in%20'+city+'&output=embed"></iframe>'
 
-document.getElementById("result").style.display="block";
+}
 
-document.getElementById("engDisease").innerText="Disease Name (English): "+data.eng;
+/* PRICE DATA */
 
-document.getElementById("marDisease").innerText="रोगाचे नाव (Marathi): "+data.mar;
+const cropPrices={
+"Wheat":{"Maharashtra":"2300","Punjab":"2400","UP":"2350","MP":"2250","Bihar":"2280"},
+"Rice":{"Punjab":"2900","Tamil Nadu":"2700","West Bengal":"2800","Odisha":"2750"},
+"Maize":{"MP":"2100","Bihar":"2000","Karnataka":"2050","Telangana":"2080"},
+"Soybean":{"MP":"4300","Maharashtra":"4200","Rajasthan":"4150","Gujarat":"4250"},
+"Cotton":{"Gujarat":"7000","Maharashtra":"6900","Punjab":"7100"},
+"Onion":{"Maharashtra":"1800","Karnataka":"1700","MP":"1750"},
+"Tomato":{"Maharashtra":"1500","Karnataka":"1600","UP":"1400"}
+}
 
-document.getElementById("solution").innerText="Solution: "+data.solution;
+const fruitPrices={
+"Mango":{"Maharashtra":"60/kg","UP":"55/kg","Gujarat":"58/kg","Karnataka":"62/kg"},
+"Banana":{"Tamil Nadu":"35/kg","Maharashtra":"40/kg","Karnataka":"45/kg","Kerala":"50/kg"},
+"Apple":{"Himachal":"180/kg","Delhi":"210/kg","Punjab":"200/kg","J&K":"170/kg"},
+"Grapes":{"Maharashtra":"90/kg","Punjab":"100/kg","Karnataka":"95/kg"},
+"Orange":{"Nagpur":"70/kg","MP":"65/kg","Punjab":"75/kg"},
+"Pomegranate":{"Maharashtra":"120/kg","Karnataka":"110/kg","Gujarat":"115/kg"}
+}
 
-document.getElementById("fertilizer").innerText="Recommended Fertilizer: "+data.fertilizer;
+/* LOAD ITEMS */
 
-document.getElementById("buy").innerHTML="Purchase Link: <a href='"+data.link+"' target='_blank'>Buy Here</a>";
+function loadItems(){
+
+let category=document.getElementById("category").value
+let select=document.getElementById("itemSelect")
+
+select.innerHTML=""
+
+let data=(category=="fruit")?fruitPrices:cropPrices
+
+for(let item in data){
+
+let option=document.createElement("option")
+option.text=item
+select.add(option)
+
+}
+
+}
+
+/* SHOW PRICE */
+
+function showPrice(){
+
+let category=document.getElementById("category").value
+let item=document.getElementById("itemSelect").value
+
+let data=(category=="fruit")?fruitPrices:cropPrices
+
+let result=""
+
+for(let state in data[item]){
+result+=state+" : ₹"+data[item][state]+"<br>"
+}
+
+document.getElementById("priceResult").innerHTML=result
 
 }
 
