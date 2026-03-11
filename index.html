@@ -165,6 +165,7 @@ animation:fade 0.6s;
 <button onclick="showPage('weatherPage')">☁ Weather Forecast</button>
 <button onclick="showPage('fertilizerPage')">🧪 Fertilizer Recommendation</button>
 <button onclick="showPage('profitPage')">📊 Crop Profit Calculator</button>
+<button onclick="showPage('tradePage')">🌍 Crop Import Export</button>
 
 </div>
 </div>
@@ -290,6 +291,28 @@ animation:fade 0.6s;
 </div>
 </div>
 
+<div id="tradePage" class="page">
+<div class="card">
+
+<h3>India Crop Import Export Data</h3>
+
+<select id="tradeCrop">
+<option>Rice</option>
+<option>Wheat</option>
+<option>Onion</option>
+<option>Potato</option>
+<option>Cotton</option>
+</select>
+
+<button onclick="showTrade()">Show Trade Data</button>
+
+<div id="tradeResult" class="result"></div>
+
+<button onclick="showPage('menuPage')">Back</button>
+
+</div>
+</div>
+
 <script>
 
 function login(){
@@ -352,6 +375,7 @@ crop="Rice, Wheat"
 }
 
 document.getElementById("soilResult").innerHTML="Recommended Crops: "+crop
+
 }
 
 function showFertilizer(){
@@ -359,14 +383,18 @@ function showFertilizer(){
 let crop=document.getElementById("fertCrop").value
 
 let fert={
-wheat:{name:"Urea",dose:"45kg per acre",time:"Apply during tillering stage"},
-rice:{name:"Urea",dose:"50kg per acre",time:"Apply after transplanting"},
-cotton:{name:"NPK 20-20-20",dose:"40kg per acre",time:"Apply before flowering"},
-tomato:{name:"Calcium Nitrate",dose:"25kg per acre",time:"Apply during fruiting"},
-onion:{name:"DAP",dose:"35kg per acre",time:"Apply before bulb formation"}
+wheat:{name:"Urea Fertilizer",dose:"45kg per acre",time:"Apply during tillering stage"},
+rice:{name:"Urea Fertilizer",dose:"50kg per acre",time:"Apply after transplanting"},
+cotton:{name:"NPK 20-20-20 Fertilizer",dose:"40kg per acre",time:"Apply before flowering"},
+tomato:{name:"Calcium Nitrate Fertilizer",dose:"25kg per acre",time:"Apply during fruiting"},
+onion:{name:"DAP Fertilizer",dose:"35kg per acre",time:"Apply before bulb formation"}
 }
 
 let f=fert[crop]
+
+let amazon="https://www.amazon.in/s?k="+encodeURIComponent(f.name)
+let flipkart="https://www.flipkart.com/search?q="+encodeURIComponent(f.name)
+let indiamart="https://dir.indiamart.com/search.mp?ss="+encodeURIComponent(f.name)
 
 document.getElementById("fertResult").innerHTML=
 
@@ -376,20 +404,21 @@ document.getElementById("fertResult").innerHTML=
 
 "<br><br>Buy Online:<br>"+
 
-"<a target='_blank' href='https://www.amazon.in/s?k="+f.name+"'>Amazon</a><br>"+
-"<a target='_blank' href='https://www.flipkart.com/search?q="+f.name+"'>Flipkart</a><br>"+
-"<a target='_blank' href='https://www.indiamart.com/search.mp?ss="+f.name+"'>IndiaMart</a><br>"+
-"<a target='_blank' href='https://www.bigbasket.com/ps/?q="+f.name+"'>BigBasket</a>"
+"<a target='_blank' href='"+amazon+"'>Buy on Amazon</a><br>"+
+"<a target='_blank' href='"+flipkart+"'>Buy on Flipkart</a><br>"+
+"<a target='_blank' href='"+indiamart+"'>Buy on IndiaMart</a>"
 }
 
 function searchShop(){
 let city=document.getElementById("city").value
+
 document.getElementById("map").innerHTML=
 '<iframe width="100%" height="350" src="https://maps.google.com/maps?q=fertilizer%20shop%20in%20'+city+'&output=embed"></iframe>'
 }
 
 function weather(){
 let city=document.getElementById("weatherCity").value
+
 document.getElementById("weatherResult").innerHTML=
 "Weather in "+city+"<br>Temperature: 28°C<br>Humidity: 60%<br>Rain Chance: 20%"
 }
@@ -401,9 +430,23 @@ let p=sell-cost
 document.getElementById("profitResult").innerHTML="Profit: ₹"+p
 }
 
+function showTrade(){
+
+let crop=document.getElementById("tradeCrop").value
+
+let data={
+Rice:"India exports rice to UAE, Iran, Saudi Arabia, USA. Imports very low.",
+Wheat:"India exports wheat to Bangladesh, Nepal. Imports during shortage years.",
+Onion:"India exports onion to Bangladesh, Malaysia, Sri Lanka, UAE.",
+Potato:"India exports potato to Nepal, Sri Lanka and Middle East countries.",
+Cotton:"India exports cotton to China, Bangladesh, Vietnam."
+}
+
+document.getElementById("tradeResult").innerHTML=data[crop]
+
+}
+
 </script>
 
 </body>
 </html>
-
-
