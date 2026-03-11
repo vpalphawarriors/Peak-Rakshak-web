@@ -284,16 +284,16 @@ button:hover{
 
 <script>
 function login(){
-  let name=document.getElementById("name").value
-  let mobile=document.getElementById("mobile").value
+  let name=document.getElementById("name").value;
+  let mobile=document.getElementById("mobile").value;
   if(name=="" || mobile==""){alert("Enter Name and Mobile");return;}
-  document.getElementById("loginPage").style.display="none"
-  showPage("menuPage")
+  document.getElementById("loginPage").style.display="none";
+  showPage("menuPage");
 }
 
 function showPage(id){
-  document.querySelectorAll(".page").forEach(p=>p.style.display="none")
-  document.getElementById(id).style.display="block"
+  document.querySelectorAll(".page").forEach(p=>p.style.display="none");
+  document.getElementById(id).style.display="block";
 }
 
 const diseases={
@@ -312,37 +312,43 @@ const diseases={
   grapes:"Powdery Mildew - Sulfur Spray"
 }
 
+// FIXED detect() function
 function detect(){
-  let plant=document.getElementById("plant").value
-  document.getElementById("scanAnimation").style.display="block"
-  document.getElementById("result").innerHTML=""
+  let plant=document.getElementById("plant").value;
+  let image=document.getElementById("image").files[0]; // check if file uploaded
+  if(!image){
+    alert("Please upload a leaf image before detecting disease!");
+    return;
+  }
+  document.getElementById("scanAnimation").style.display="block";
+  document.getElementById("result").innerHTML="";
   setTimeout(function(){
-    document.getElementById("scanAnimation").style.display="none"
-    document.getElementById("result").innerHTML="<b>Plant:</b> "+plant+"<br><b>Disease:</b> "+diseases[plant]
-  },2000)
+    document.getElementById("scanAnimation").style.display="none";
+    document.getElementById("result").innerHTML="<b>Plant:</b> "+plant+"<br><b>Disease:</b> "+diseases[plant];
+  },2000);
 }
 
 function recommendCrop(){
-  let soil=document.getElementById("soilType").value
-  let ph=document.getElementById("ph").value
-  let temp=document.getElementById("temp").value
-  let rain=document.getElementById("rain").value
-  let result=""
-  if(soil=="Black Soil"){ result="Best Crops: Cotton, Soybean, Wheat" }
-  else if(soil=="Red Soil"){ result="Best Crops: Groundnut, Millet, Potato" }
-  else if(soil=="Alluvial Soil"){ result="Best Crops: Rice, Sugarcane, Wheat" }
-  else if(soil=="Sandy Soil"){ result="Best Crops: Watermelon, Groundnut" }
-  else{ result="Best Crops: Rice, Lettuce, Cabbage" }
-  document.getElementById("soilResult").innerHTML=result
+  let soil=document.getElementById("soilType").value;
+  let ph=document.getElementById("ph").value;
+  let temp=document.getElementById("temp").value;
+  let rain=document.getElementById("rain").value;
+  let result="";
+  if(soil=="Black Soil"){ result="Best Crops: Cotton, Soybean, Wheat"; }
+  else if(soil=="Red Soil"){ result="Best Crops: Groundnut, Millet, Potato"; }
+  else if(soil=="Alluvial Soil"){ result="Best Crops: Rice, Sugarcane, Wheat"; }
+  else if(soil=="Sandy Soil"){ result="Best Crops: Watermelon, Groundnut"; }
+  else{ result="Best Crops: Rice, Lettuce, Cabbage"; }
+  document.getElementById("soilResult").innerHTML=result;
 }
 
 function showWeather(){
-  let city=document.getElementById("weatherCity").value
-  document.getElementById("weatherResult").innerHTML="Weather in "+city+" : 30°C | Humidity 60% | Light Rain Possible"
+  let city=document.getElementById("weatherCity").value;
+  document.getElementById("weatherResult").innerHTML="Weather in "+city+" : 30°C | Humidity 60% | Light Rain Possible";
 }
 
 function showFertilizer(){
-  let crop=document.getElementById("fertCrop").value
+  let crop=document.getElementById("fertCrop").value;
   let fert={
     wheat:"Urea + DAP",
     rice:"Urea + Potash",
@@ -350,23 +356,23 @@ function showFertilizer(){
     tomato:"Calcium Nitrate",
     onion:"DAP + Potash"
   }
-  document.getElementById("fertResult").innerHTML=fert[crop]
+  document.getElementById("fertResult").innerHTML=fert[crop];
 }
 
 function calcProfit(){
-  let cost=document.getElementById("cost").value
-  let sell=document.getElementById("sell").value
-  let profit=sell-cost
-  document.getElementById("profitResult").innerHTML="Profit: ₹"+profit
+  let cost=document.getElementById("cost").value;
+  let sell=document.getElementById("sell").value;
+  let profit=sell-cost;
+  document.getElementById("profitResult").innerHTML="Profit: ₹"+profit;
 }
 
 function searchShop(){
-  let city=document.getElementById("city").value
-  document.getElementById("map").innerHTML='<iframe width="100%" height="350" src="https://maps.google.com/maps?q=fertilizer%20shop%20in%20'+city+'&output=embed"></iframe>'
+  let city=document.getElementById("city").value;
+  document.getElementById("map").innerHTML='<iframe width="100%" height="350" src="https://maps.google.com/maps?q=fertilizer%20shop%20in%20'+city+'&output=embed"></iframe>';
 }
 
 function showPrice(){
-  let item=document.getElementById("itemSelect").value
+  let item=document.getElementById("itemSelect").value;
   let prices={
     "Wheat":"₹2300 Maharashtra | ₹2400 Punjab",
     "Rice":"₹2900 Punjab | ₹2700 Tamil Nadu",
@@ -375,7 +381,7 @@ function showPrice(){
     "Mango":"₹60/kg Maharashtra | ₹55/kg UP",
     "Banana":"₹40/kg Maharashtra | ₹35/kg Tamil Nadu"
   }
-  document.getElementById("priceResult").innerHTML=prices[item]
+  document.getElementById("priceResult").innerHTML=prices[item];
 }
 </script>
 
