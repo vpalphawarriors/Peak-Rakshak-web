@@ -1,112 +1,117 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pik Rakshak</title>
 
 <style>
-
 body{
-font-family:Arial;
-margin:0;
-background:url("https://images.unsplash.com/photo-1464226184884-fa280b87c399");
-background-size:cover;
-background-attachment:fixed;
+  font-family:Arial;
+  margin:0;
+  background:url("https://images.unsplash.com/photo-1464226184884-fa280b87c399");
+  background-size:cover;
+  background-attachment:fixed;
 }
 
-/* HEADER */
-
 header{
-background:linear-gradient(90deg,#2e7d32,#1b5e20);
-color:white;
-text-align:center;
-padding:18px;
-font-size:28px;
-box-shadow:0 4px 10px rgba(0,0,0,0.4);
-animation:glow 3s infinite alternate;
+  background:linear-gradient(90deg,#2e7d32,#1b5e20);
+  color:white;
+  text-align:center;
+  padding:18px;
+  font-size:28px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.4);
+  animation:glow 3s infinite alternate;
 }
 
 @keyframes glow{
-from{box-shadow:0 0 10px #2e7d32}
-to{box-shadow:0 0 25px #66bb6a}
+  from{box-shadow:0 0 10px #2e7d32}
+  to{box-shadow:0 0 25px #66bb6a}
 }
-
-/* LOGIN */
 
 .login{
-background:url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
-background-size:cover;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
+  background:url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+  background-size:cover;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-/* PAGES */
-
 .page{
-display:none;
-padding:20px;
-min-height:100vh;
-background:rgba(255,255,255,0.9);
-animation:fade 0.8s;
+  display:none;
+  padding:20px;
+  min-height:100vh;
+  background:rgba(255,255,255,0.9);
+  animation:fade 0.8s;
 }
 
 @keyframes fade{
-from{opacity:0;transform:translateY(30px)}
-to{opacity:1;transform:translateY(0)}
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
 }
-
-/* CARD */
 
 .card{
-background:white;
-padding:20px;
-border-radius:12px;
-margin-top:20px;
-box-shadow:0 6px 20px rgba(0,0,0,0.3);
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  margin-top:20px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.3);
 }
 
-/* FORM */
-
 input,select{
-width:100%;
-padding:10px;
-margin-top:10px;
-border-radius:6px;
-border:1px solid #ccc;
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border-radius:6px;
+  border:1px solid #ccc;
 }
 
 button{
-padding:12px;
-margin-top:10px;
-background:linear-gradient(90deg,#43a047,#2e7d32);
-color:white;
-border:none;
-cursor:pointer;
-border-radius:8px;
-font-weight:bold;
-transition:0.3s;
+  padding:12px;
+  margin-top:10px;
+  background:linear-gradient(90deg,#43a047,#2e7d32);
+  color:white;
+  border:none;
+  cursor:pointer;
+  border-radius:8px;
+  font-weight:bold;
+  transition:0.3s;
 }
 
 button:hover{
-transform:scale(1.07);
-box-shadow:0 0 15px #66bb6a;
+  transform:scale(1.07);
+  box-shadow:0 0 15px #66bb6a;
 }
 
 .result{
-background:#f1f8e9;
-padding:15px;
-margin-top:10px;
-border-radius:6px;
+  background:#f1f8e9;
+  padding:15px;
+  margin-top:10px;
+  border-radius:6px;
+  animation:resultFade 1s;
 }
 
-.error{
-color:red;
-font-weight:bold;
+@keyframes resultFade{
+  from{opacity:0;transform:scale(0.8)}
+  to{opacity:1;transform:scale(1)}
 }
 
+/* SCANNER ANIMATION */
+.scan{
+  display:none;
+  text-align:center;
+  margin-top:15px;
+}
+
+.leaf{
+  font-size:40px;
+  animation:spinLeaf 2s linear infinite;
+}
+
+@keyframes spinLeaf{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
 </style>
 </head>
 
@@ -115,316 +120,263 @@ font-weight:bold;
 <header>🌾 Pik Rakshak - Smart Farming Assistant</header>
 
 <!-- LOGIN -->
-
 <div id="loginPage" class="login">
-
-<div class="card" style="width:320px">
-
-<h3>Farmer Login</h3>
-
-<input id="name" placeholder="Farmer Name">
-<input id="mobile" placeholder="Mobile Number">
-
-<button onclick="login()">Login</button>
-
-</div>
-
+  <div class="card" style="width:320px">
+    <h3>Farmer Login</h3>
+    <input id="name" placeholder="Farmer Name">
+    <input id="mobile" placeholder="Mobile Number">
+    <button onclick="login()">Login</button>
+  </div>
 </div>
 
 <!-- MENU -->
-
 <div id="menuPage" class="page">
-
-<div class="card">
-
-<h3>Farmer Services</h3>
-
-<button onclick="showPage('detectPage')">🌿 Disease Detection</button>
-
-<button onclick="showPage('pricePage')">💰 Market Prices</button>
-
-<button onclick="showPage('soilPage')">🌱 Soil & Crop Recommendation</button>
-
-<button onclick="showPage('shopPage')">📍 Nearby Fertilizer Shop</button>
-
-</div>
-
+  <div class="card">
+    <h3>Farmer Services</h3>
+    <button onclick="showPage('detectPage')">🌿 Disease Detection</button>
+    <button onclick="showPage('pricePage')">💰 Market Prices</button>
+    <button onclick="showPage('soilPage')">🌱 Soil & Crop Recommendation</button>
+    <button onclick="showPage('shopPage')">📍 Nearby Fertilizer Shop</button>
+    <button onclick="showPage('weatherPage')">☁ Weather Forecast</button>
+    <button onclick="showPage('fertilizerPage')">🧪 Fertilizer Recommendation</button>
+    <button onclick="showPage('schemePage')">🏛 Government Schemes</button>
+    <button onclick="showPage('profitPage')">📊 Crop Profit Calculator</button>
+  </div>
 </div>
 
 <!-- DISEASE DETECTION -->
-
 <div id="detectPage" class="page">
+  <div class="card">
+    <h3>Disease Detection</h3>
+    <select id="plant">
+      <option>wheat</option>
+      <option>rice</option>
+      <option>maize</option>
+      <option>soybean</option>
+      <option>cotton</option>
+      <option>potato</option>
+      <option>onion</option>
+      <option>tomato</option>
+      <option>chilli</option>
+      <option>mango</option>
+      <option>banana</option>
+      <option>apple</option>
+      <option>grapes</option>
+    </select>
 
-<div class="card">
+    <!-- SINGLE FILE INPUT (Upload + Camera) -->
+    <input type="file" id="image" accept="image/*" capture="environment">
 
-<h3>Disease Detection</h3>
+    <button onclick="detect()">Detect Disease</button>
 
-<select id="plant">
+    <div id="scanAnimation" class="scan">
+      <div class="leaf">🍃</div>
+      <p>Scanning Crop Leaf...</p>
+    </div>
 
-<option>wheat</option>
-<option>rice</option>
-<option>maize</option>
-<option>soybean</option>
-<option>cotton</option>
-<option>potato</option>
-<option>onion</option>
-<option>tomato</option>
-<option>chilli</option>
-<option>mango</option>
-<option>banana</option>
-<option>apple</option>
-<option>grapes</option>
-
-</select>
-
-<input type="file" id="image">
-
-<button onclick="detect()">Detect Disease</button>
-
-<div id="result" class="result"></div>
-
-<button onclick="showPage('menuPage')">Back</button>
-
+    <div id="result" class="result"></div>
+    <button onclick="showPage('menuPage')">Back</button>
+  </div>
 </div>
 
-</div>
-
-<!-- SOIL RECOMMENDATION -->
-
+<!-- SOIL & CROP RECOMMENDATION -->
 <div id="soilPage" class="page">
-
-<div class="card">
-
-<h3>🌱 Soil & Crop Recommendation</h3>
-
-<select id="soilType">
-<option>Black Soil</option>
-<option>Red Soil</option>
-<option>Alluvial Soil</option>
-<option>Sandy Soil</option>
-<option>Clay Soil</option>
-</select>
-
-<input id="ph" placeholder="Soil pH">
-
-<input id="temp" placeholder="Temperature °C">
-
-<input id="rain" placeholder="Rainfall mm">
-
-<button onclick="recommendCrop()">Recommend Crop</button>
-
-<div id="soilResult" class="result"></div>
-
-<button onclick="showPage('menuPage')">Back</button>
-
+  <div class="card">
+    <h3>🌱 Soil & Crop Recommendation</h3>
+    <select id="soilType">
+      <option>Black Soil</option>
+      <option>Red Soil</option>
+      <option>Alluvial Soil</option>
+      <option>Sandy Soil</option>
+      <option>Clay Soil</option>
+    </select>
+    <input id="ph" placeholder="Soil pH">
+    <input id="temp" placeholder="Temperature °C">
+    <input id="rain" placeholder="Rainfall mm">
+    <button onclick="recommendCrop()">Recommend Crop</button>
+    <div id="soilResult" class="result"></div>
+    <button onclick="showPage('menuPage')">Back</button>
+  </div>
 </div>
 
-</div>
-
-<!-- PRICE PAGE -->
-
+<!-- MARKET PRICE -->
 <div id="pricePage" class="page">
-
-<div class="card">
-
-<h3>Market Prices</h3>
-
-<select id="itemSelect">
-
-<option>Wheat</option>
-<option>Rice</option>
-<option>Tomato</option>
-<option>Onion</option>
-<option>Mango</option>
-<option>Banana</option>
-
-</select>
-
-<button onclick="showPrice()">Show Price</button>
-
-<div id="priceResult" class="result"></div>
-
-<button onclick="showPage('menuPage')">Back</button>
-
+  <div class="card">
+    <h3>Market Prices</h3>
+    <select id="itemSelect">
+      <option>Wheat</option>
+      <option>Rice</option>
+      <option>Tomato</option>
+      <option>Onion</option>
+      <option>Mango</option>
+      <option>Banana</option>
+    </select>
+    <button onclick="showPrice()">Show Price</button>
+    <div id="priceResult" class="result"></div>
+    <button onclick="showPage('menuPage')">Back</button>
+  </div>
 </div>
 
-</div>
-
-<!-- SHOP -->
-
+<!-- FERTILIZER SHOP -->
 <div id="shopPage" class="page">
-
-<div class="card">
-
-<h3>Nearby Fertilizer Shop</h3>
-
-<input id="city" placeholder="Enter City">
-
-<button onclick="searchShop()">Search</button>
-
-<div id="map"></div>
-
-<button onclick="showPage('menuPage')">Back</button>
-
+  <div class="card">
+    <h3>Nearby Fertilizer Shop</h3>
+    <input id="city" placeholder="Enter City">
+    <button onclick="searchShop()">Search</button>
+    <div id="map"></div>
+    <button onclick="showPage('menuPage')">Back</button>
+  </div>
 </div>
 
+<!-- WEATHER -->
+<div id="weatherPage" class="page">
+  <div class="card">
+    <h3>Weather Forecast</h3>
+    <input id="weatherCity" placeholder="Enter City">
+    <button onclick="showWeather()">Check Weather</button>
+    <div id="weatherResult" class="result"></div>
+    <button onclick="showPage('menuPage')">Back</button>
+  </div>
+</div>
+
+<!-- FERTILIZER RECOMMENDATION -->
+<div id="fertilizerPage" class="page">
+  <div class="card">
+    <h3>Fertilizer Recommendation</h3>
+    <select id="fertCrop">
+      <option>wheat</option>
+      <option>rice</option>
+      <option>cotton</option>
+      <option>tomato</option>
+      <option>onion</option>
+    </select>
+    <button onclick="showFertilizer()">Recommend Fertilizer</button>
+    <div id="fertResult" class="result"></div>
+    <button onclick="showPage('menuPage')">Back</button>
+  </div>
+</div>
+
+<!-- GOVERNMENT SCHEMES -->
+<div id="schemePage" class="page">
+  <div class="card">
+    <h3>Government Schemes for Farmers</h3>
+    <div class="result">
+      PM Kisan Samman Nidhi – ₹6000 per year support.<br><br>
+      PMFBY Crop Insurance – Protection against crop loss.<br><br>
+      Kisan Credit Card – Easy farm loan facility.<br><br>
+      Soil Health Card Scheme – Soil testing support.
+    </div>
+    <button onclick="showPage('menuPage')">Back</button>
+  </div>
+</div>
+
+<!-- PROFIT CALCULATOR -->
+<div id="profitPage" class="page">
+  <div class="card">
+    <h3>Crop Profit Calculator</h3>
+    <input id="cost" placeholder="Total Cost ₹">
+    <input id="sell" placeholder="Selling Price ₹">
+    <button onclick="calcProfit()">Calculate Profit</button>
+    <div id="profitResult" class="result"></div>
+    <button onclick="showPage('menuPage')">Back</button>
+  </div>
 </div>
 
 <script>
-
-/* LOGIN */
-
 function login(){
-
-let name=document.getElementById("name").value
-let mobile=document.getElementById("mobile").value
-
-if(name=="" || mobile==""){
-alert("Enter Name and Mobile")
-return
+  let name=document.getElementById("name").value
+  let mobile=document.getElementById("mobile").value
+  if(name=="" || mobile==""){alert("Enter Name and Mobile");return;}
+  document.getElementById("loginPage").style.display="none"
+  showPage("menuPage")
 }
-
-document.getElementById("loginPage").style.display="none"
-showPage("menuPage")
-
-}
-
-/* PAGE SWITCH */
 
 function showPage(id){
-
-document.querySelectorAll(".page").forEach(p=>p.style.display="none")
-
-document.getElementById(id).style.display="block"
-
+  document.querySelectorAll(".page").forEach(p=>p.style.display="none")
+  document.getElementById(id).style.display="block"
 }
 
-/* DISEASE DATA */
-
 const diseases={
-wheat:"Rust Disease - Spray Propiconazole",
-rice:"Blast Disease - Use Tricyclazole",
-maize:"Leaf Blight - Spray Mancozeb",
-soybean:"Yellow Mosaic - Spray Imidacloprid",
-cotton:"Bollworm - Spray Spinosad",
-potato:"Late Blight - Use Metalaxyl",
-onion:"Purple Blotch - Spray Chlorothalonil",
-tomato:"Early Blight - Spray Mancozeb",
-chilli:"Leaf Curl - Spray Imidacloprid",
-mango:"Anthracnose - Copper Fungicide",
-banana:"Panama Disease - Carbendazim",
-apple:"Apple Scab - Captan",
-grapes:"Powdery Mildew - Sulfur Spray"
+  wheat:"Rust Disease - Spray Propiconazole",
+  rice:"Blast Disease - Use Tricyclazole",
+  maize:"Leaf Blight - Spray Mancozeb",
+  soybean:"Yellow Mosaic - Spray Imidacloprid",
+  cotton:"Bollworm - Spray Spinosad",
+  potato:"Late Blight - Use Metalaxyl",
+  onion:"Purple Blotch - Spray Chlorothalonil",
+  tomato:"Early Blight - Spray Mancozeb",
+  chilli:"Leaf Curl - Spray Imidacloprid",
+  mango:"Anthracnose - Copper Fungicide",
+  banana:"Panama Disease - Carbendazim",
+  apple:"Apple Scab - Captan",
+  grapes:"Powdery Mildew - Sulfur Spray"
 }
 
 function detect(){
-
-let plant=document.getElementById("plant").value
-
-let file=document.getElementById("image").files[0]
-
-if(!file){
-
-alert("Upload Image")
-
-return
-
+  let plant=document.getElementById("plant").value
+  document.getElementById("scanAnimation").style.display="block"
+  document.getElementById("result").innerHTML=""
+  setTimeout(function(){
+    document.getElementById("scanAnimation").style.display="none"
+    document.getElementById("result").innerHTML="<b>Plant:</b> "+plant+"<br><b>Disease:</b> "+diseases[plant]
+  },2000)
 }
-
-document.getElementById("result").innerHTML=
-
-"<b>Plant:</b> "+plant+
-
-"<br><b>Disease:</b> "+diseases[plant]
-
-}
-
-/* SOIL RECOMMENDATION */
 
 function recommendCrop(){
-
-let soil=document.getElementById("soilType").value
-
-let ph=document.getElementById("ph").value
-
-let temp=document.getElementById("temp").value
-
-let rain=document.getElementById("rain").value
-
-let result=""
-
-if(soil=="Black Soil"){
-
-result="Best Crops: Cotton, Soybean, Wheat"
-
+  let soil=document.getElementById("soilType").value
+  let ph=document.getElementById("ph").value
+  let temp=document.getElementById("temp").value
+  let rain=document.getElementById("rain").value
+  let result=""
+  if(soil=="Black Soil"){ result="Best Crops: Cotton, Soybean, Wheat" }
+  else if(soil=="Red Soil"){ result="Best Crops: Groundnut, Millet, Potato" }
+  else if(soil=="Alluvial Soil"){ result="Best Crops: Rice, Sugarcane, Wheat" }
+  else if(soil=="Sandy Soil"){ result="Best Crops: Watermelon, Groundnut" }
+  else{ result="Best Crops: Rice, Lettuce, Cabbage" }
+  document.getElementById("soilResult").innerHTML=result
 }
 
-else if(soil=="Red Soil"){
-
-result="Best Crops: Groundnut, Millet, Potato"
-
+function showWeather(){
+  let city=document.getElementById("weatherCity").value
+  document.getElementById("weatherResult").innerHTML="Weather in "+city+" : 30°C | Humidity 60% | Light Rain Possible"
 }
 
-else if(soil=="Alluvial Soil"){
-
-result="Best Crops: Rice, Sugarcane, Wheat"
-
+function showFertilizer(){
+  let crop=document.getElementById("fertCrop").value
+  let fert={
+    wheat:"Urea + DAP",
+    rice:"Urea + Potash",
+    cotton:"NPK 20-20-20",
+    tomato:"Calcium Nitrate",
+    onion:"DAP + Potash"
+  }
+  document.getElementById("fertResult").innerHTML=fert[crop]
 }
 
-else if(soil=="Sandy Soil"){
-
-result="Best Crops: Watermelon, Groundnut"
-
+function calcProfit(){
+  let cost=document.getElementById("cost").value
+  let sell=document.getElementById("sell").value
+  let profit=sell-cost
+  document.getElementById("profitResult").innerHTML="Profit: ₹"+profit
 }
-
-else{
-
-result="Best Crops: Rice, Lettuce, Cabbage"
-
-}
-
-document.getElementById("soilResult").innerHTML=result
-
-}
-
-/* SHOP */
 
 function searchShop(){
-
-let city=document.getElementById("city").value
-
-document.getElementById("map").innerHTML=
-
-'<iframe width="100%" height="350" src="https://maps.google.com/maps?q=fertilizer%20shop%20in%20'+city+'&output=embed"></iframe>'
-
+  let city=document.getElementById("city").value
+  document.getElementById("map").innerHTML='<iframe width="100%" height="350" src="https://maps.google.com/maps?q=fertilizer%20shop%20in%20'+city+'&output=embed"></iframe>'
 }
-
-/* PRICE */
 
 function showPrice(){
-
-let item=document.getElementById("itemSelect").value
-
-let prices={
-
-"Wheat":"₹2300 Maharashtra | ₹2400 Punjab",
-
-"Rice":"₹2900 Punjab | ₹2700 Tamil Nadu",
-
-"Tomato":"₹1500 Maharashtra | ₹1600 Karnataka",
-
-"Onion":"₹1800 Maharashtra | ₹1700 Karnataka",
-
-"Mango":"₹60/kg Maharashtra | ₹55/kg UP",
-
-"Banana":"₹40/kg Maharashtra | ₹35/kg Tamil Nadu"
-
+  let item=document.getElementById("itemSelect").value
+  let prices={
+    "Wheat":"₹2300 Maharashtra | ₹2400 Punjab",
+    "Rice":"₹2900 Punjab | ₹2700 Tamil Nadu",
+    "Tomato":"₹1500 Maharashtra | ₹1600 Karnataka",
+    "Onion":"₹1800 Maharashtra | ₹1700 Karnataka",
+    "Mango":"₹60/kg Maharashtra | ₹55/kg UP",
+    "Banana":"₹40/kg Maharashtra | ₹35/kg Tamil Nadu"
+  }
+  document.getElementById("priceResult").innerHTML=prices[item]
 }
-
-document.getElementById("priceResult").innerHTML=prices[item]
-
-}
-
 </script>
 
 </body>
